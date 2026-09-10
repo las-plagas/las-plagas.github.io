@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Las Plagas</title>
+<meta name="description" content="Las Plagas – ein deutschsprachiges Star Stable Online Team">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0d0d0d;
+  --panel:#121212;
+  --panel2:#1a0f0f;
+  --text:#f1eee8;
+  --muted:#a7a7a7;
+  --red:#8b0000;
+  --dark-red:#4a0505;
+  --line:rgba(255,255,255,.09);
+  --max:1180px;
+}
+
+*{
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  line-height:1.65;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  z-index:20;
+  background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px);
+  background-size:100% 4px;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.container{
+  width:min(var(--max),calc(100% - 40px));
+  margin:auto;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav{
+  position:fixed;
+  inset:0 0 auto;
+  z-index:30;
+  background:rgba(13,13,13,.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav-inner{
+  height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-family:Oswald,sans-serif;
+  letter-spacing:3px;
+  font-size:23px;
+}
+
+.logo span{
+  color:var(--red);
+}
+
+.links{
+  display:flex;
+  gap:27px;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+}
+
+.links a{
+  color:#c9c9c9;
+  transition:.2s;
+}
+
+.links a:hover{
+  color:white;
+}
+
+.menu{
+  display:none;
+  background:none;
+  border:0;
+  color:white;
+  font-size:25px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 40%,rgba(139,0,0,.25),transparent 30%),
+    radial-gradient(circle at 25% 80%,rgba(74,5,5,.18),transparent 28%),
+    linear-gradient(115deg,#0d0d0d,#120909 55%,#0d0d0d);
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  width:620px;
+  height:620px;
+  right:-130px;
+  top:130px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 55px rgba(255,255,255,.015),
+    0 0 0 110px rgba(255,255,255,.01);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  padding-top:70px;
+  max-width:760px;
+}
+
+.kicker,
+.eyebrow{
+  color:var(--red);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.kicker{
+  letter-spacing:4px;
+}
+
+h1{
+  margin:12px 0 10px;
+  font-family:Oswald,sans-serif;
+  font-size:clamp(72px,12vw,150px);
+  line-height:.88;
+  letter-spacing:5px;
+  text-transform:uppercase;
+}
+
+.hero h2{
+  font-family:Oswald,sans-serif;
+  font-weight:400;
+  font-size:24px;
+  letter-spacing:3px;
+  color:#d2d2d2;
+}
+
+.hero p{
+  max-width:600px;
+  color:var(--muted);
+  font-size:17px;
+  margin:22px 0 30px;
+}
+
+.btn{
+  display:inline-block;
+  padding:13px 21px;
+  border:1px solid var(--dark-red);
+  background:var(--red);
+  color:white;
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  margin-right:9px;
+  transition:.2s;
+}
+
+.btn:hover{
+  background:var(--dark-red);
+  transform:translateY(-2px);
+}
+
+.btn.alt{
+  background:transparent;
+  border-color:var(--line);
+  color:#ddd;
+}
+
+.status{
+  position:absolute;
+  right:30px;
+  bottom:35px;
+  z-index:2;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#8d8d8d;
+  text-transform:uppercase;
+}
+
+.dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  background:#3fa34d;
+  border-radius:50%;
+  margin-right:8px;
+  box-shadow:0 0 10px #3fa34d;
+}
+
+
+/* =========================
+   ALLGEMEINE SEKTIONEN
+========================= */
+
+section{
+  padding:105px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:30px;
+  margin-bottom:45px;
+}
+
+h2.title{
+  font-family:Oswald,sans-serif;
+  font-size:45px;
+  line-height:1.05;
+  margin:8px 0 0;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.section-head p{
+  max-width:510px;
+  color:var(--muted);
+  margin:0;
+}
+
+
+/* =========================
+   ÜBER UNS
+========================= */
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:55px;
+}
+
+.about-grid p{
+  color:#c4c4c4;
+}
+
+.quote{
+  border-left:3px solid var(--red);
+  padding:18px 25px;
+  background:rgba(255,255,255,.025);
+  font-family:Oswald,sans-serif;
+  font-size:22px;
+  letter-spacing:1px;
+  height:max-content;
+  align-self:start;
+}
+
+
+/* =========================
+   KARTEN
+========================= */
+
+.cards,
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+  padding:27px;
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);
+}
+
+.card::before,
+.equipment-card::before,
+.weekplan-button button::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:45px;
+  height:2px;
+  background:var(--red);
+}
+
+.number,
+.step-num{
+  font-family:Oswald,sans-serif;
+  color:#666;
+  letter-spacing:2px;
+}
+
+.number{
+  font-size:12px;
+}
+
+.card h3,
+.step h3,
+.activity h3,
+.equipment-content h3{
+  font-family:Oswald,sans-serif;
+  text-transform:uppercase;
+}
+
+.card h3{
+  font-size:23px;
+  letter-spacing:1px;
+  margin:18px 0 8px;
+}
+
+.card p,
+.step p,
+.activity p,
+.equipment-content p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* =========================
+   TEAMPFERD & OUTFIT
+========================= */
+
+.equipment-container{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.equipment-card{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);
+}
+
+/* Beide Bildbereiche exakt gleich groß */
+
+.equipment-image{
+  width:100%;
+  height:520px;
+  overflow:hidden;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.equipment-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  transition:transform .3s ease;
+}
+
+.equipment-card:hover img{
+  transform:scale(1.03);
+}
+
+.equipment-content{
+  padding:27px;
+}
+
+.equipment-label{
+  color:var(--red);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:3px;
+}
+
+.equipment-content h3{
+  font-size:28px;
+  letter-spacing:1px;
+  margin:12px 0 8px;
+}
+
+.equipment-content p{
+  margin:0 0 22px;
+}
+
+.equipment-details{
+  border-top:1px solid var(--line);
+}
+
+.equipment-details div{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  align-items:center;
+  gap:20px;
+  min-height:48px;
+  padding:11px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+.equipment-details strong{
+  color:#ddd;
+  font-weight:600;
+}
+
+.equipment-details span{
+  color:var(--muted);
+  text-align:right;
+}
+
+/* =========================
+   WOCHENPLAN
+========================= */
+
+.weekplan-button{
+  display:flex;
+  justify-content:center;
+}
+
+.weekplan-button button{
+  position:relative;
+  width:100%;
+  max-width:900px;
+  padding:24px 30px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);
+  color:var(--text);
+  cursor:pointer;
+  text-align:left;
+  transition:.25s;
+}
+
+.weekplan-button button:hover{
+  border-color:rgba(139,0,0,.6);
+  background:linear-gradient(145deg,#1a1010,#160909);
+  transform:translateY(-2px);
+}
+
+.weekplan-button span{
+  font-family:Oswald,sans-serif;
+  font-size:13px;
+  letter-spacing:2px;
+  color:#777;
+}
+
+.weekplan-button strong{
+  font-family:Oswald,sans-serif;
+  text-transform:uppercase;
+  font-size:22px;
+  letter-spacing:1px;
+  font-weight:500;
+}
+
+.weekplan-button small{
+  margin-left:auto;
+  font-size:24px;
+  color:var(--red);
+}
+
+.weekplan-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  background:rgba(0,0,0,.88);
+  backdrop-filter:blur(8px);
+}
+
+.weekplan-overlay.active{
+  display:flex;
+}
+
+.weekplan-modal{
+  position:relative;
+  width:100%;
+  max-width:1100px;
+  max-height:90vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.weekplan-modal img{
+  max-width:100%;
+  max-height:90vh;
+  width:auto;
+  height:auto;
+  display:block;
+  border:1px solid var(--line);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+.weekplan-close{
+  position:absolute;
+  right:-15px;
+  top:-15px;
+  z-index:2;
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  background:#121212;
+  color:white;
+  font-size:28px;
+  line-height:1;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.weekplan-close:hover{
+  background:var(--red);
+  border-color:var(--red);
+}
+
+
+/* =========================
+   TEAM
+========================= */
+
+.members{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.member{
+  min-height:260px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:end;
+  padding:18px;
+  border:1px solid var(--line);
+  background:#111;
+}
+
+.member::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(transparent 35%,rgba(0,0,0,.9));
+}
+
+.fake-photo{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(145deg,#1a1a1a,#0d0d0d 60%,#1a0909);
+}
+
+.fake-photo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
+.member-info{
+  position:relative;
+  z-index:2;
+}
+
+.member-name{
+  font-family:Oswald,sans-serif;
+  font-size:25px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.role{
+  color:var(--red);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+
+/* =========================
+   MEHR ERFAHREN
+========================= */
+
+.member-more{
+  display:inline-block;
+  margin-top:8px;
+  color:#aaa;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  transition:.2s;
+}
+
+.member-more:hover{
+  color:white;
+}
+
+
+/* =========================
+   AKTIVITÄTEN
+========================= */
+
+.activities{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.activity{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:20px;
+  padding:24px;
+  background:var(--panel);
+  border:1px solid var(--line);
+}
+
+.activity-date{
+  font-family:Oswald,sans-serif;
+  font-size:18px;
+  color:var(--red);
+  text-transform:uppercase;
+}
+
+.activity h3{
+  margin:0 0 4px;
+  font-size:21px;
+}
+
+.activity p{
+  margin:0;
+  font-size:13px;
+}
+
+
+/* =========================
+   RANGSYSTEM
+========================= */
+
+.steps{
+  grid-template-columns:repeat(4,1fr);
+}
+
+.step-num{
+  font-size:40px;
+}
+
+.step h3{
+  margin:4px 0;
+}
+
+.step p{
+  font-size:14px;
+}
+
+
+/* =========================
+   BEWERBUNG
+========================= */
+
+.apply{
+  padding:55px;
+  text-align:center;
+  background:linear-gradient(120deg,#180b0b,#0d0d0d);
+  border:1px solid rgba(139,0,0,.35);
+}
+
+.apply h2{
+  font-family:Oswald,sans-serif;
+  text-transform:uppercase;
+  font-size:50px;
+  margin:0 0 12px;
+}
+
+.apply p{
+  max-width:650px;
+  margin:0 auto 25px;
+  color:#b9b9b9;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:35px 0;
+  color:#7f7f7f;
+  font-size:12px;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.small-logo{
+  font-family:Oswald,sans-serif;
+  letter-spacing:3px;
+  color:#ddd;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+  .links{
+    display:none;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .hero{
+    min-height:90vh;
+  }
+
+  .status{
+    right:20px;
+  }
+
+  .about-grid,
+  .activities,
+  .equipment-container{
+    grid-template-columns:1fr;
+  }
+
+  .cards,
+  .steps{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .members{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .section-head{
+    display:block;
+  }
+
+  .section-head p{
+    margin-top:15px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .equipment-image{
+    height:300px;
+  }
+
+
+  /* Teampferd auf Tablet */
+
+  .equipment-card:first-child .equipment-image{
+    height:auto;
+    aspect-ratio:4040 / 6520;
+  }
+
+  .equipment-card:nth-child(2) .equipment-image{
+    height:380px;
+  }
+}
+
+
+
+@media(max-width:520px){
+
+  .container{
+    width:min(100% - 28px,var(--max));
+  }
+
+  section{
+    padding:75px 0;
+  }
+
+  h1{
+    font-size:70px;
+  }
+
+  h2.title{
+    font-size:36px;
+  }
+
+  .cards,
+  .steps,
+  .members{
+    grid-template-columns:1fr;
+  }
+
+  .equipment-image{
+    height:260px;
+  }
+
+
+  /* Teampferd auf Handy */
+
+  .equipment-card:first-child .equipment-image{
+    height:auto;
+    aspect-ratio:4040 / 6520;
+  }
+
+  .equipment-card:nth-child(2) .equipment-image{
+    height:330px;
+  }
+
+  .equipment-content{
+    padding:22px;
+  }
+
+  .equipment-details div{
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+
+  .equipment-details span{
+    text-align:left;
+  }
+
+  .weekplan-button button{
+    padding:20px;
+  }
+
+  .weekplan-button strong{
+    font-size:18px;
+  }
+
+  .weekplan-overlay{
+    padding:15px;
+  }
+
+  .weekplan-modal img{
+    max-height:85vh;
+  }
+
+  .weekplan-close{
+    right:-5px;
+    top:-5px;
+  }
+
+  .apply{
+    padding:35px 20px;
+  }
+
+  .apply h2{
+    font-size:38px;
+  }
+
+  .activity{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+  <div class="container nav-inner">
+
+    <a class="logo" href="#start">
+      LAS <span>PLAGAS</span>
+    </a>
+
+    <div class="links">
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#equipment">Teampferd & Outfit</a>
+      <a href="#wochenplan">Wochenplan</a>
+      <a href="#team">Team</a>
+      <a href="#aktivitaeten">Aktivitäten</a>
+      <a href="#bewerbung">Bewerbung</a>
+      <a href="https://linktr.ee/lasplagas" target="_blank" rel="noopener">Linktree</a>
+    </div>
+
+    <button class="menu" aria-label="Menü">☰</button>
+
+  </div>
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero" id="start">
+
+  <div class="container hero-content">
+
+    <div class="kicker">Las Plagas</div>
+
+    <h1>Las<br>Plagas</h1>
+
+    <h2>Gloria Las Plagas!</h2>
+
+    <p>
+      Willkommen bei Las Plagas, einem SSO-Team für alle, die
+      Gemeinschaft, gemeinsame Erlebnisse und eine besondere
+      Atmosphäre im Resident-Evil-Stil auf Jorvik suchen.
+    </p>
+
+    <a class="btn" href="#ueber-uns">Team entdecken</a>
+    <a class="btn alt" href="#bewerbung">Mitmachen</a>
+
+  </div>
+
+  <div class="status">
+    <span class="dot"></span>
+    Teamstatus: aktiv
+  </div>
+
+</header>
+
+
+<!-- ÜBER UNS -->
+
+<section id="ueber-uns">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">01 · Über das Team</div>
+        <h2 class="title">Wer sind wir?</h2>
+      </div>
+
+      <p>
+        Ein SSO-Team mit Resident-Evil-Feeling und viel Platz für unsere Community.
+      </p>
+
+    </div>
+
+    <div class="about-grid">
+
+      <div>
+
+        <p>
+          Wir sind ein neugegründetes SSO-Team welches Spaß in den Vordergrund stellt. Unsere Leitungen hatten eines Abens beim leveln die Idee, unsere Resident Evil Liebe in SSO zu vereinen.
+          Kurze Zeit darauf waren wir zwischen den Las Plagas oder dem Bingo Club hin und her gerissen, bis wir uns entschieden haben, dass wir die Las Plagas sein wollen. Für uns war klar, dass wir ein Team sein wollen, welches nicht zu streng mit Anwesenheiten sein will, SSO ist ein Freizeitspiel und soll Spaß machen und wenn man keine Zeit oder Lust hat, sollte man sich zu nichts zwingen müssen.
+          (eventuell haben wir auch eine Obession mit Resident Evil Charakteren, aber das ist ein anderes Thema)
+        </p>
+
+        <p>
+          Bei unseren Treffen gehen wir gerne auf die Wünsche unserer
+          Mitglieder ein und gestalten die Aktivitäten gemeinsam.
+          Das Privatleben geht bei uns immer vor. Niemand muss sich
+          dafür entschuldigen oder rechtfertigen, wenn die Teilnahme
+          an einer Aktivität einmal nicht möglich ist.
+        </p>
+
+      </div>
+
+      <div class="quote">
+        „Nicht jeder findet seinen Platz. Manche erschaffen ihn gemeinsam.“
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TEAMPFERD & OUTFIT -->
+
+<section id="equipment">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">02 · Teampferd & Outfit</div>
+        <h2 class="title">Teampferd & Outfit</h2>
+      </div>
+
+      <p>
+        Die offizielle Ausrüstung von Las Plagas.
+      </p>
+
+    </div>
+
+    <div class="equipment-container">
+
+
+      <!-- TEAMPFERD -->
+
+      <div class="equipment-card">
+
+        <div class="equipment-image">
+          <img src="teampferd.png" alt="Teampferd von Las Plagas">
+        </div>
+
+        <div class="equipment-content">
+
+          <h3>Teampferd</h3>
+
+          <p>
+            Unser offizielles Teampferd für gemeinsame Ausritte,
+            Events und Teamaktivitäten.
+          </p>
+
+          <div class="equipment-details">
+
+            <div>
+              <strong>Pferd</strong>
+              <span>Generation 3 Westfale in allen Farben</span>
+            </div>
+
+            <div>
+              <strong>Sattel</strong>
+              <span>Wettbewerbsmäßiger Springsattel</span>
+            </div>
+
+            <div>
+              <strong>Zaumzeug</strong>
+              <span>Dämmerschwarze Hannoveraner Trense</span>
+            </div>
+
+            <div>
+              <strong>Satteldecke</strong>
+              <span>Weinrote Herbstdecke</span>
+            </div>
+
+            <div>
+              <strong>Accessoires</strong>
+              <span>Bandagen „Pampas bei Nacht“</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TEAM-OUTFIT -->
+
+      <div class="equipment-card">
+
+        <div class="equipment-image">
+          <img src="teamoutfit.png" alt="Team-Outfit von Las Plagas">
+        </div>
+
+        <div class="equipment-content">
+
+          <h3>Team-Outfit</h3>
+
+          <p>
+            Die offizielle Kleidung von Las Plagas, getragen bei
+            unseren gemeinsamen Aktivitäten und besonderen Events.
+          </p>
+
+          <div class="equipment-details">
+
+            <div>
+              <strong>Oberteil</strong>
+              <span>Schwarze Lederjacke (bei Jarlaheim)</span>
+            </div>
+
+            <div>
+              <strong>Hose</strong>
+              <span>Schwarze Jeans „Herbstlaub“</span>
+            </div>
+
+            <div>
+              <strong>Schuhe</strong>
+              <span>Stiefel „Still Sporty“</span>
+            </div>
+
+            <div>
+              <strong>Helm</strong>
+              <span>Beanie „Londoner Nebel“</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WOCHENPLAN -->
+
+<section id="wochenplan">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">03 · Unser Wochenplan</div>
+        <h2 class="title">Wochenplan</h2>
+      </div>
+
+    </div>
+
+    <div class="weekplan-button">
+
+      <button onclick="openWeekplan()">
+        <span>03</span>
+        <strong>Wochenplan öffnen</strong>
+        <small>→</small>
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WOCHENPLAN OVERLAY -->
+
+<div id="weekplan-overlay" class="weekplan-overlay" onclick="closeWeekplan()">
+
+  <div class="weekplan-modal" onclick="event.stopPropagation()">
+
+    <button class="weekplan-close" onclick="closeWeekplan()" aria-label="Wochenplan schließen">
+      ×
+    </button>
+
+    <img src="wochenplan.png" alt="Wochenplan von Las Plagas">
+
+  </div>
+
+</div>
+
+
+<!-- WERTE -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">04 · Was uns wichtig ist</div>
+        <h2 class="title">Unsere Werte</h2>
+      </div>
+
+    </div>
+
+    <div class="cards">
+
+      <article class="card">
+
+        <div class="number">01</div>
+
+        <h3>Zusammenhalt</h3>
+
+        <p>
+          Wir unterstützen uns gegenseitig und sorgen dafür,
+          dass sich niemand ausgeschlossen fühlt.
+        </p>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="number">02</div>
+
+        <h3>Spaß</h3>
+
+        <p>
+          SSO soll Spaß machen. Neben geplanten Aktivitäten
+          ist bei uns auch Platz für spontanen Blödsinn.
+        </p>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="number">03</div>
+
+        <h3>Respekt</h3>
+
+        <p>
+          Ein freundlicher Umgang miteinander ist uns wichtig,
+          innerhalb und außerhalb des Clubs.
+        </p>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="number">04</div>
+
+        <h3>Vielfalt</h3>
+
+        <p>
+          Wir sind ein diverses Team und haben keinen Platz für
+          Rassismus, Homophobie oder sonstige respektlose Bemerkungen.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TEAM -->
+
+<section id="team">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">05 · Unsere Crew</div>
+        <h2 class="title">Das Team</h2>
+      </div>
+
+    </div>
+
+    <div class="members">
+
+
+      <!-- LORE -->
+
+      <article class="member">
+
+        <div class="fake-photo">
+          <img src="lore.png" alt="Lore">
+        </div>
+
+        <div class="member-info">
+
+          <div class="role">
+            Teambesitzerin
+          </div>
+
+          <div class="member-name">
+            Codename: Lore
+          </div>
+
+          <a
+            class="member-more"
+            href="lore-steckbrief.png"
+            target="_blank"
+            rel="noopener"
+          >
+            Mehr erfahren →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- JULIA -->
+
+      <article class="member">
+
+        <div class="fake-photo">
+          <img src="julia.png" alt="Julia">
+        </div>
+
+        <div class="member-info">
+
+          <div class="role">
+            Teamleitung
+          </div>
+
+          <div class="member-name">
+            Codename: Julia
+          </div>
+
+          <a
+            class="member-more"
+            href="julia-steckbrief.png"
+            target="_blank"
+            rel="noopener"
+          >
+            Mehr erfahren →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- MOCHI -->
+
+      <article class="member">
+
+        <div class="fake-photo">
+          <img src="mochi.png" alt="Mochi">
+        </div>
+
+        <div class="member-info">
+
+          <div class="role">
+            Teamleitung
+          </div>
+
+          <div class="member-name">
+            Codename: Mochi
+          </div>
+
+          <a
+            class="member-more"
+            href="mochi-steckbrief.png"
+            target="_blank"
+            rel="noopener"
+          >
+            Mehr erfahren →
+          </a>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- AKTIVITÄTEN -->
+
+<section id="aktivitaeten">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">06 · Unser Teamalltag</div>
+        <h2 class="title">Aktivitäten</h2>
+      </div>
+
+      <p>
+        Ein Einblick in unseren Alltag.
+      </p>
+
+    </div>
+
+    <div class="activities">
+
+
+      <article class="activity">
+
+        <div class="activity-date">
+          Wöchentlich
+        </div>
+
+        <div>
+
+          <h3>Teamtreffen</h3>
+
+          <p>
+            Gemeinsam quatschen, reiten und den Abend auf Jorvik verbringen.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="activity">
+
+        <div class="activity-date">
+          Freizeit
+        </div>
+
+        <div>
+
+          <h3>Ausritte / Spieleabende</h3>
+
+          <p>
+            Gemeinsame Mottoritte oder abgestimmte Spieleabende.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="activity">
+
+        <div class="activity-date">
+          Kreativ
+        </div>
+
+        <div>
+
+          <h3>Fotoshootings</h3>
+
+          <p>
+            Clubfotos, Outfit-Ideen und kleine Geschichten rund um unsere Pferde.
+          </p>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- RANGSYSTEM -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+        <div class="eyebrow">07 · Unser Rangsystem</div>
+        <h2 class="title">
+          Vom Recruit zum festen Teil des Teams
+        </h2>
+      </div>
+
+    </div>
+
+    <div class="steps">
+
+
+      <div class="step">
+
+        <div class="step-num">
+          01
+        </div>
+
+        <h3>Recruit</h3>
+
+        <p>
+          Du lernst den Club und unsere Mitglieder kennen
+          und kannst ganz entspannt an Aktivitäten teilnehmen.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-num">
+          02
+        </div>
+
+        <h3>Officer</h3>
+
+        <p>
+          Du bist nach der Probezeit ein fester Teil von Las Plagas
+          und besitzt unser Outfit.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-num">
+          03
+        </div>
+
+        <h3>Senior Officer</h3>
+
+        <p>
+          Aktive und zuverlässige Mitglieder können mehr Verantwortung
+          im Club übernehmen, z. B. einen Teil der Dressur leiten.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-num">
+          04
+        </div>
+
+        <h3>Commander</h3>
+
+        <p>
+          Der höchste Rang. Du hast das Outfit, gute Dressurkenntnisse
+          und leitest nun die Treffen vollständig.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- BEWERBUNG -->
+
+<section id="bewerbung">
+
+  <div class="container">
+
+    <div class="apply">
+
+      <div class="eyebrow">
+        08 · Interesse?
+      </div>
+
+      <h2>
+        Werde Teil von Las Plagas
+      </h2>
+
+      <p>
+        Du suchst ein aktives, freundliches SSO-Team mit eigener
+        Atmosphäre? Dann schau bei uns vorbei und lerne uns kennen.
+      </p>
+
+      <a
+        class="btn"
+        href="https://forms.gle/AXxEUAihGGWhpFMSA"
+        target="_blank"
+        rel="noopener"
+      >
+        Bewerben
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div class="small-logo">
+      LAS PLAGAS
+    </div>
+
+    <div>
+      Star Stable Online Team. Nicht offiziell mit Star Stable Entertainment verbunden.
+    </div>
+
+    <div>
+      © 2026 Las Plagas
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function openWeekplan(){
+
+  document
+    .getElementById("weekplan-overlay")
+    .classList.add("active");
+
+  document.body.style.overflow="hidden";
+}
+
+
+function closeWeekplan(){
+
+  document
+    .getElementById("weekplan-overlay")
+    .classList.remove("active");
+
+  document.body.style.overflow="";
+}
+
+
+document.addEventListener("keydown",event=>{
+
+  if(event.key==="Escape"){
+    closeWeekplan();
+  }
+
+});
+
+</script>
+
+</body>
+</html>
